@@ -3,7 +3,7 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 
 // get all products
 router.get("/", (req, res) => {
-  Product.finAll({
+  Product.findAll({
     include: [
       {
         model: Category,
@@ -18,6 +18,9 @@ router.get("/", (req, res) => {
       res.status(404).json({ message: "User can not be found with this id" });
       return;
     }
+    return res.json(dbProductData);
+  }).catch((err) => {
+    console.log(err);
     res.status(500).json(err);
   });
 });
